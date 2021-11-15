@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# prohibited characters
+# \ / : * ? " < > |
+
+# max 255 chars
+
+#sed 's/^[^\\/:*?"<>|]{1,255}$/&/
