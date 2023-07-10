@@ -3,7 +3,7 @@
 # searches for orphaned XMP files
 
 
-import os, sys, shutil, glob
+import os, glob
 
 def isOrphan(path):
     originalPath = path[:-4]
