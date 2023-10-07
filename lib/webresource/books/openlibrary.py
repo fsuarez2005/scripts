@@ -3,6 +3,8 @@ import urllib.request
 import json
 import jsonpath_ng
 
+
+
 # PURPOSE
 
 
@@ -76,7 +78,7 @@ class BaseJSONDataSource:
 
 class Book(JSONObject):
     def getTitle(self):
-        return self.getAttributeValue('title')
+        return self.getAttributeValue('title')[0]
 
 # ==================================================
 
@@ -104,12 +106,9 @@ class OpenLibraryDataSource(BookDataSource):
     }
     
     
-    def getBookJSONByISBN(self,isbn):
+    def getBookByISBN(self,isbn):
         url = self.isbnBaseURL + isbn + self.jsonSuffix
         jsonObj = self.getJSONFromURL( url )
-        
-        # cannot do downcasting in python
-        # extract data from JSONObject and create Book
         
         book = Book(attributePaths=self.attributePaths)
         book.data = jsonObj.data

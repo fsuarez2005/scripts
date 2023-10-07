@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+TEXTMATEAPP="$HOME/Applications/TextMate.app"
+
+
+open -a "$TEXTMATEAPP" "$@"
+
