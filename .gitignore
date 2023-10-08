@@ -5,3 +5,5 @@ testdata
 
 *.pyc
 __pycache__
+
+old
