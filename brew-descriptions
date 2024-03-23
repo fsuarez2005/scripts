@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+
+OUTFILE="$HOME/bin/brew.formulae.txt"
+
+brew formulae|
+while read LINE; do
+	if [ -n "$LINE" ]; then
+		brew desc --eval-all "$LINE"
+	fi
+done|
+tee "$OUTFILE"
+
+# avcodec avformat avfilter swscale swresample sdl2

@@ -1,0 +1,115 @@
+#!/usr/bin/env ruby
+
+# YEAR (4 digit)
+# MONTH (2 digit)
+# DAY (2 digit)
+# HOUR (24H)
+# MINUTE (2 digit)
+# SECOND (2 digit)
+
+# --------------------------------------------------
+
+def generateNewId
+  currentTime = Time.now
+  year = currentTime.year
+  month = currentTime.month
+  day = currentTime.day
+  hour = currentTime.hour
+  minute = currentTime.min
+  second = currentTime.sec
+  return "%04d%02d%02d%02d%02d%02d" % [year,month,day,hour,minute,second]
+end
+
+# --------------------------------------------------
+
+
+class Box
+  def initialize(height=10,width=10)
+    # instance varibles
+    @eolChar = "\n"
+    
+    @topLeftChar = ','
+    @topMidChar = '-'
+    @topRightChar = ','
+    
+    @midLeftChar = '|'
+    @midRightChar = '|'
+    
+    @bottomLeftChar = '\''
+    @bottomMidChar = '-'
+    @bottomRightChar = '\''
+    
+    @height = height
+    @width = width
+    
+    @padding = 1
+  end
+  
+  
+  def padText(content='')
+    
+  end
+  
+  
+  
+  def top
+    out = ''
+    out += @topLeftChar
+    for n in 0..(@width-1) do
+      out += @topMidChar
+    end
+    out += @topRightChar
+    out += @eolChar
+    return out
+  end
+  
+  def middle
+    out = ''
+    for n in 0..(@height - 1) do
+      out += @midLeftChar
+
+      for m in 0..(@width - 1) do
+        out += " "
+      end
+      
+      
+      out += @midRightChar
+      out += @eolChar
+    end
+    return out
+  end
+  
+  def bottom
+    out = ''
+    out += @bottomLeftChar
+    for n in 0..(@width-1) do
+      out += @bottomMidChar
+    end
+    out += @bottomRightChar
+    out += @eolChar
+    return out
+  end
+  
+  
+  def printBox
+    print top + middle + bottom
+    #middle
+    #bottom
+  end
+  
+  
+end
+
+# --------------------------------------------------
+
+def main
+  b = Box.new(10,30)
+  b.printBox
+
+  
+end
+
+
+# --------------------------------------------------
+
+main

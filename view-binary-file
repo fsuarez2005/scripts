@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+#
+#
+#  Output file content as bytes displayed as hexadecimal
+#
+#
+
+def process_byte(data)
+  print("%.2X " % data)
+end
+
+
+def process_file(file_stream, columns = 10)
+  while (c = file_stream.getbyte) != nil
+    
+    # beginning of output line
+    if (file_stream.tell % columns == 1)
+      print("%.10X\t" % file_stream.tell)
+    
+    end
+    
+    process_byte(c)
+    
+    
+    
+    if (file_stream.tell % columns == 0)
+      print("\n")
+    end
+    
+    
+    
+  end
+end
+
+
+def main()
+  # ARGV
+  filename = ARGV[0]
+  filename_encoding = "US-ASCII"
+  columns = 10
+  
+  
+  fs = open(filename, encoding: filename_encoding)
+  process_file(fs)
+  fs.close()
+  
+  
+  
+end
+
+
+main()
