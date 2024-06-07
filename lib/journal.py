@@ -65,6 +65,8 @@ class Journal:
         return self.location_pattern(JOURNAL_PREFIX,year,month,day)
     
     def is_correct_location(self):
+        #print(f"Path: {self.path}")
+        #print(f"Correct Location: {self.correct_location()}")
         return self.path == self.correct_location()
     
     def dirname(self):
@@ -93,24 +95,27 @@ class Journal:
         isjournal = self.is_journal()
         
         iscorrectlocation = self.is_correct_location()
-        
-        return isjournal and iscorrectlocation
+        #return False
+        return (isjournal and iscorrectlocation)
 
     # TODO: 
     def can_move(self):
         # check for file in correct location
+        if (self.is_good()):
+            return
+        
+        
         
         # get correct location for this journal
+        correctlocation = self.correct_location()
+        
         
         # check if this journal is in wrong location
+        
         
         # check for existing file in location
         
         return False
-        
-    
-    
-    
     
     def encoded_date(self):
         "Returns data encoded into filename"
@@ -127,6 +132,8 @@ class Journal:
             d = None
         
         return d
+    def csv_string(self):
+        return f"{self.path}\t{self.correct_location()}"
 
 
 class JournalDirectory:
@@ -138,23 +145,16 @@ class JournalDirectory:
         self.home_directory = home_directory
         self.dirstack = DirectoryStack()
         self.journals = []
-        
-        
-        
-        
-        
     
     def glob_journals(self):
-        filelist = glob.glob("*/**/*.pages",root_dir=self.home_directory)
-        
+        # NOTE: need recursive for globstar to get all files
+        filelist = glob.glob("**/*.pages",root_dir=self.home_directory,recursive=True)
         m = map(lambda f: Journal(f),filelist)
         self.journals = list(m)
         
-        
     def fullpath(self,journal):
-        p = ""
-        p += self.home_directory
-        p += "/"
+        p =  self.home_directory
+        p += os.sep
         p += journal.path
         
         return p
@@ -166,3 +166,8 @@ class JournalDirectory:
     def bad_journals(self):
         fo = filter(lambda j: not j.is_good(),self.journals)
         return list(fo)
+        
+        
+        
+        
+        
