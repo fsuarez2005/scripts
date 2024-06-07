@@ -2,11 +2,11 @@
 
 test
 testdata
+old
+tools
 
 *.pyc
 __pycache__
-
-old
 
 *~
 
