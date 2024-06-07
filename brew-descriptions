@@ -1,14 +1,18 @@
 #!/usr/bin/env zsh
+#META/description=Prints information about all homebrew formulae
+#META/complete=false
 
 
-OUTFILE="$HOME/bin/brew.formulae.txt"
+#OUTFILE="$HOME/bin/brew.formulae.txt"
 
 brew formulae|
 while read LINE; do
 	if [ -n "$LINE" ]; then
 		brew desc --eval-all "$LINE"
 	fi
-done|
-tee "$OUTFILE"
+done
+#tee "$OUTFILE"
 
 # avcodec avformat avfilter swscale swresample sdl2
+
+

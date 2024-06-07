@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+#META/description=Converts the filenames in a M3U file from absolute to relative.
+#META/complete=True
+
+parseline () {
+    LINE="$1"
+    # EXTINF
+    if [[ "${LINE:0:1}" = "#" ]];then 
+        echo "$LINE"
+    elif [[ "${LINE:0:7}" = "file://" ]]; then
+        relpath "${LINE:7}"
+    fi
+}
+
+main () {
+    while read LINE; do
+        parseline "$LINE"
+    done
+}
+
+main "$@"
