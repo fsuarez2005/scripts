@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+PREFIX="Box"
+
+BOXID=""
+
+if [[ -n "$1" ]]; then
+    BOXID="$1"
+else
+    BOXID="$(personal-inventory-box-id)"
+fi
+
+
+
+CURRENTBOX="${PREFIX}${BOXID}"
+echo "Box ID: ${CURRENTBOX}"
+
+sed "s/\(.*\)/${CURRENTBOX}\tURN:UPC:\1/"
+

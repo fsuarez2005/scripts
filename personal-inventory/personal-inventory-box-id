@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+print -P "%D{%Y%m%d%H%M%S}"
