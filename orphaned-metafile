@@ -11,10 +11,23 @@ def isOrphan(path):
     isPathFile = os.path.isfile(originalPath)
 
     return isPathFile
-    
+   
+   
+def recursiveGlob(path):
+	globpath = path+os.path.sep+"**"+os.path.sep+"*.xmp"
+	print(f"Path = {globpath}")
+
+	listing = glob.glob( globpath, recursive = True )
+	return listing
+	
+
+def listRealFile():
+	pass
+
+
 
 # returns list of XMP files that are orphans
-def getOrphanXMPFiles(path):
+def getOrphanXMPFilesOld(path):
     listing = glob.glob(path+os.path.sep+'*')
     
     for f in listing:
@@ -28,5 +41,6 @@ def getOrphanXMPFiles(path):
             getOrphanXMPFiles(fullname)
 
 
-getOrphanXMPFiles('.')
+#getOrphanXMPFiles('.')
 
+recursiveGlob('.')
