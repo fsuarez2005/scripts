@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+
+$options = {}
+
+
+
+
+# uses config and command line options to change configuration
+def parse_options
+  
+end
+
+
+
+
+# ======================================================
+
+def main
+  puts "hello"
+end
+
+
+#main
+
+
+
+o = OptionParser.new do |opts|
+  p opts
+end
