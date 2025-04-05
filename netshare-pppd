@@ -1,0 +1,86 @@
+#!/usr/bin/env zsh
+
+#
+# Runs PPPD for the NetShare Android App
+#
+#set -x
+
+NAME="Netshare-PPPD"
+LOGFILE="/tmp/netshare.pppd.log"
+PIDFILE="/tmp/netshare.pppd.pid"
+
+
+function verbosemessage() {
+    echo "VERBOSE:" "$@" >&2
+}
+
+
+function errormessage() {
+    echo "ERROR:" "$@" >&2
+}
+
+
+
+function is-netshare-pppd-running() {
+    [[ -f "$PIDFILE" ]]
+}
+
+function run-pppd() {
+    if is-netshare-pppd-running; then
+        errormessage Netshare-PPPD is already running.
+        exit 1
+    fi
+    
+    verbosemessage Starting "$NAME"
+    
+    sudo pppd user "netshare" password 0000 call netshare pty "nc 192.168.49.1 8181" &>> "$LOGFILE"&
+    echo $! > "$PIDFILE"
+    
+}
+
+function stop-pppd() {
+    if is-netshare-pppd-running; then
+        verbosemessage Stopping "$NAME"
+        if [[ -f "$PIDFILE" ]]; then
+            cat "$PIDFILE"|xargs kill;
+            rm "$PIDFILE"
+        else
+            errormessage PID file not found.
+        fi
+    else
+        errormessage "$NAME" process not found
+        exit 1
+    fi
+}
+
+function status-pppd() {
+    echo "$NAME" Process Status
+    if [[ -f "$PIDFILE" ]]; then
+        cat "$PIDFILE"|xargs ps
+    fi
+}
+
+
+function main() {
+    case "$argv[1]" in
+        start)
+            run-pppd
+            ;;
+    
+        stop)
+            stop-pppd
+            ;;
+        status)
+            status-pppd
+            ;;
+        restart)
+            stop-pppd
+            run-pppd
+            ;;
+        *)
+            echo Use start, stop, status
+            ;;
+    esac
+}
+
+main "${argv[@]}"
