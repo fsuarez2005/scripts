@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+# Backs up Firefox profile
+
+BACKUPDIR="$HOME/Documents/backup/firefox"
+FIREFOXPROFILEDIR="$HOME/Library/Application Support/Firefox/Profiles"
+CWD="$(pwd)"
+
+cd "$FIREFOXPROFILEDIR/"
+
+
+select profile in *; do
+    break;
+done
+
+read "BACKUP?Backup the profile ${profile}? [Y/n] "
+
+if [[ "$BACKUP" == "Y" ]]; then
+    echo "!!! backing up !!!"
+else
+    echo "!!! not backing up !!!"
+fi

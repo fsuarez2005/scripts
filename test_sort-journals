@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'test/unit'
+require_relative 'sort-journals'
+
+class TestSortJournals < Test::Unit::TestCase
+  def test_journal_year_dir
+    assert_equal("journal2025",journal_year_dir(2025))
+
+  end
+
+  def test_journal_year_month_dir
+    assert_equal("journal202502",journal_year_month_dir(2025,02))
+
+
+  end
+
+
+end
+
